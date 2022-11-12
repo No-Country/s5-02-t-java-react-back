@@ -11,9 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +51,9 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    private List<Turn> turnList = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
