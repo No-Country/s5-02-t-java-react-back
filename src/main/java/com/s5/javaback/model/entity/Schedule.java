@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +25,10 @@ public class Schedule {
     private Long id;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+   /* @OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    @JoinColumn(name="imagePost")*/
+
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
     private List<Turn> listTurn;
     @CreationTimestamp
     @Column(name = "register", updatable = false, nullable = false)
