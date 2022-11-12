@@ -15,11 +15,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "turns")
 public class Turn { // Turno
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Enumerated(EnumType.STRING)
     private ConditionEnum conditions; // estado
 
@@ -31,5 +29,4 @@ public class Turn { // Turno
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
 }
