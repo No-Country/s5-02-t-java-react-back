@@ -5,9 +5,7 @@ import com.s5.javaback.util.enums.ConditionEnum;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder
@@ -15,10 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter @Setter
 @Entity
+@Table(name = "turns")
 public class Turn { // Turno
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Enumerated(EnumType.STRING)
     private ConditionEnum condition; // estado
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
