@@ -19,10 +19,14 @@ public class Turn { // Turno
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private ConditionEnum condition; // estado
+    private ConditionEnum conditions; // estado
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
     private LocalDateTime startDate;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
     private LocalDateTime endDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 }
