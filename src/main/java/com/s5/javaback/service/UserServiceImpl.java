@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserResponse> getByUsernameOrEmail(String username, String email) {
+        return repository.findByUsernameOrEmail(username, email).map(mapper::toResponse);
+    }
+
+    @Override
     public Optional<UserResponse> update(long id, UserRequest request) throws Exception {
         final var user = checkUser(id);
 

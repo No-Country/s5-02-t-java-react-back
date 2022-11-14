@@ -33,11 +33,6 @@ public class UserController {
         return ResponseEntity.of(service.update(id, request));
     }
 
-    @PostMapping
-    public ResponseEntity<UserResponse> register(@RequestBody UserRequest request) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable("id") long id) throws Exception {
         service.delete(id);

@@ -14,6 +14,8 @@ public interface UserService {
 
     Optional<UserResponse> getById(long id);
 
+    Optional<UserResponse> getByUsernameOrEmail(String username, String email);
+
     Optional<UserResponse> update(long id, UserRequest request) throws Exception;
 
     void delete(long id) throws Exception;

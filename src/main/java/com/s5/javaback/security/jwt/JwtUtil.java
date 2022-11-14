@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtils {
+public class JwtUtil {
 
     @Value("${iceCream}")
     private String key;
