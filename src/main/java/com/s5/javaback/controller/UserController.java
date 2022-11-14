@@ -3,13 +3,11 @@ package com.s5.javaback.controller;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.service.abstraction.UserService;
-import com.s5.javaback.util.enums.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
