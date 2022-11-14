@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 @CrossOrigin("*")
-@RequiredArgsConstructor
+
 public class UserController {
 
     private final UserService service;
