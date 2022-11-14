@@ -15,8 +15,8 @@ public class JwtUtil {
     @Value("${iceCream}")
     private String key;
 
-    public Claims getClaims(String token) {
-        return Jwts.parser().parseClaimsJws(token).getBody();
+    private Claims getClaims(String token) {
+        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
     }
 
     public String getUsername(String token) {
@@ -35,7 +35,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 7928374L))
+                .setExpiration(new Date(System.currentTimeMillis() + 20 * 1000 * 60))
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }
