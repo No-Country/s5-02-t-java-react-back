@@ -19,6 +19,7 @@ public class EmailService {
 
    public void sendHtmlMessage(EmailRequest email){
        MimeMessage message = javaMailSender.createMimeMessage();
+       //Todo falta terminar
    }
 
 
