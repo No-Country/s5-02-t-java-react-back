@@ -20,7 +20,18 @@ public class EntertainamentHomoController {
 
     @PostMapping("/create")
     public ResponseEntity<?>create(@Valid @RequestBody EntertainamentHomeRequest request) throws Exception {
-             ResponseEntity<?>  response =        service.create(request);
+             ResponseEntity<?>  response = service.create(request);
+        return new ResponseEntity(response.getBody(), response.getStatusCode());
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?>update(@Valid @PathVariable Long id ,  @RequestBody EntertainamentHomeRequest request) throws Exception {
+
+        ResponseEntity<?>  response = service.update(id,request);
+        return new ResponseEntity(response.getBody(), response.getStatusCode());
+    }
+    @GetMapping("/find/{id}")
+    public ResponseEntity<?>findById(@Valid @PathVariable Long id ) throws Exception {
+        ResponseEntity<?>  response = service.getById(id);
         return new ResponseEntity(response.getBody(), response.getStatusCode());
     }
 }

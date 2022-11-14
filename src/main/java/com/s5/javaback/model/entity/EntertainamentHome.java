@@ -3,10 +3,7 @@ package com.s5.javaback.model.entity;
 import com.s5.javaback.model.response.ScheduleResponse;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -20,11 +17,13 @@ import java.util.List;
 @Table(name = "entertainament_home")
 public class EntertainamentHome {
     @Id
-    @Column(name = "id", nullable = false) private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @NotBlank
     private String name ;
     @NotBlank
-     private String direction ;
+     private String adress ;
     @NotBlank
     private String phone ;
     @NotBlank
@@ -34,10 +33,6 @@ public class EntertainamentHome {
     @NotBlank
     private String description;
     private  String photograpy;
-    private List<ScheduleResponse> ScheduleResponseList;
-
-
-
 
 
 }

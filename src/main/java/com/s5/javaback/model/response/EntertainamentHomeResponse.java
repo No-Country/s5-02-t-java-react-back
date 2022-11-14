@@ -1,26 +1,30 @@
 package com.s5.javaback.model.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
-
+@NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class EntertainamentHomeResponse implements Serializable {
-    private final Long id;
+    private  Long id;
     @NotBlank
-    private final String name;
+    private  String name;
     @NotBlank
-    private final String direction;
+    private  String adress;
     @NotBlank
-    private final String phone;
+    private  String phone;
     @NotBlank
-    private final String city;
+    private  String city;
     @NotBlank
-    private final String state;
+    private  String state;
     @NotBlank
-    private final String description;
-    private final String photograpy;
-    private final List<List<ScheduleResponse>> ScheduleResponseList;
+    private  String description;
+    private  String photograpy;
+
+
 }

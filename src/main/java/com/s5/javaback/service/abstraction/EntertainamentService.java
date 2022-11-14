@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface EntertainamentService {
 
     ResponseEntity<?> create(EntertainamentHomeRequest request) throws Exception;
-    Optional< EntertainamentHomeResponse> getById(long id);
-    Optional< EntertainamentHomeResponse> update(long id,  EntertainamentHomeRequest request) throws Exception;
+    ResponseEntity<EntertainamentHomeResponse> getById(Long id);
+    ResponseEntity<EntertainamentHomeResponse> update(Long id,  EntertainamentHomeRequest request) throws Exception;
 
 }
