@@ -3,13 +3,11 @@ package com.s5.javaback.controller;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.service.abstraction.UserService;
-import com.s5.javaback.util.enums.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 @RequiredArgsConstructor
 @RestController
@@ -33,11 +31,6 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponse> updateById(@PathVariable("id") long id, @RequestBody UserRequest request) throws Exception {
         return ResponseEntity.of(service.update(id, request));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserResponse> register(@RequestBody UserRequest request) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package com.s5.javaback.service;
 import com.s5.javaback.mapper.UserMapper;
 import com.s5.javaback.model.entity.Role;
 import com.s5.javaback.model.entity.User;
+import com.s5.javaback.model.request.EmailRequest;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.repository.IRoleRepository;
@@ -11,20 +12,28 @@ import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.RoleType;
 import com.s5.javaback.util.enums.UserStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final IUserRepository repository;
-    private final IRoleRepository roleRepository;
-    private final UserMapper mapper;
-    private final PasswordEncoder encoder;
+    @Autowired
+    private IUserRepository repository;
+    @Autowired
+    private IRoleRepository roleRepository;
+    @Autowired
+    private UserMapper mapper;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    EmailService emailService;
 
     @Override
     public UserResponse create(UserRequest request) throws Exception {
@@ -43,8 +52,10 @@ public class UserServiceImpl implements UserService {
                 .orElseGet(() -> new Role(RoleType.ROLE_USER));
 
         user.addRole(role);
+        User userCreate = repository.save(user);
+        emailService.sendWelcome(userCreate);
+        return mapper.toResponse(userCreate);
 
-        return mapper.toResponse(repository.save(user));
     }
 
     @Override
@@ -59,6 +70,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserResponse> getById(long id) {
         return repository.findById(id).map(mapper::toResponse);
+    }
+
+    @Override
+    public Optional<UserResponse> getByUsernameOrEmail(String username, String email) {
+        return repository.findByUsernameOrEmail(username, email).map(mapper::toResponse);
     }
 
     @Override
@@ -80,6 +96,15 @@ public class UserServiceImpl implements UserService {
         user.setStatus(UserStatus.DISABLED);
 
         repository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String userName) {
+        User user = repository.findByUsername(userName);
+        if(user == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Usuario no encontrado");
+        }
+        return user;
     }
 
     private User checkUser(long id) throws Exception {
