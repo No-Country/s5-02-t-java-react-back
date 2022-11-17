@@ -53,14 +53,9 @@ public class UserServiceImpl implements UserService {
 
         user.addRole(role);
         User userCreate = repository.save(user);
-       /* EmailRequest email = new EmailRequest();
-        email.setTo(user.getEmail());
-        email.setFrom("noreply@pizzapp.com");
-        email.setSubject("Bienvenidos");
-        email.setTemplate("welcome-email.html");*/
         emailService.sendWelcome(userCreate);
         return mapper.toResponse(userCreate);
-        //return mapper.toResponse(repository.save(user));
+
     }
 
     @Override
@@ -75,6 +70,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserResponse> getById(long id) {
         return repository.findById(id).map(mapper::toResponse);
+    }
+
+    @Override
+    public Optional<UserResponse> getByUsernameOrEmail(String username, String email) {
+        return repository.findByUsernameOrEmail(username, email).map(mapper::toResponse);
     }
 
     @Override
