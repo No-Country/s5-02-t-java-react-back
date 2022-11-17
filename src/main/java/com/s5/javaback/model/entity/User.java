@@ -51,6 +51,7 @@ public class User {
     @Column(name = "roles_id")
     private List<Role> roles;
 
+
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
     public void addRole(Role role) {
