@@ -54,7 +54,7 @@ public class EmailService {
         helper.setFrom("mercadopagotest11@gmail.com");
         helper.setTo(userCreate.getEmail());
         helper.setSubject("Bienvenidos");
-        String html = templateEngine.process("welcome-email.html",context);
+        String html = templateEngine.process("email.html",context);
         helper.setText(html, true);
         log.info("Sending email: {} with html body: {}", email, html);
         javaMailSender.send(message);
