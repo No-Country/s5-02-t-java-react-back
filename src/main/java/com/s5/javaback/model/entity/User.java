@@ -44,7 +44,9 @@ public class User {
     @Column(name = "created_at")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
     private LocalDateTime createdAt;
-
+    @JoinColumn(name="image_id")
+    @OneToOne(cascade = CascadeType.REFRESH)
+    private Image image;
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "users_roles",
