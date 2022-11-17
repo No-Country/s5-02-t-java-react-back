@@ -11,10 +11,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
     @Mapping(target = "createdAt", dateFormat = DateFormatConstants.DATE_TIME_FORMAT)
     UserResponse toResponse(User entity);
-
     List<UserResponse> toResponses(List<User> entities);
 
     @Mapping(target = "createdAt", ignore = true)
