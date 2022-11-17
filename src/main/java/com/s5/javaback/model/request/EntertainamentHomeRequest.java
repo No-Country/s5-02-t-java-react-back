@@ -1,11 +1,7 @@
 package com.s5.javaback.model.request;
 
-import com.s5.javaback.model.entity.Schedule;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
