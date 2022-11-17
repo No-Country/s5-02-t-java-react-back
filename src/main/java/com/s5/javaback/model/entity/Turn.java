@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 @AllArgsConstructor
@@ -21,11 +22,14 @@ public class Turn { // Turno
     @Enumerated(EnumType.STRING)
     private ConditionEnum conditions; // estado
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
-    private LocalDateTime startDate;
+    private LocalTime startDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
-    private LocalDateTime endDate;
+    private LocalTime endDate;
+
+    private Double price;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_FORMAT)
+    private LocalDateTime days;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

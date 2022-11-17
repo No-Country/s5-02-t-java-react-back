@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html  lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Template for HTML email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/src/main/resources/static/css/email.css" type="text/css">
+</head>
+<body>
+    <p>Hola, <span th:text="${name}">Peter Static</span>!</p>
+    <p>
+        Te has suscrito con éxito a <b> Eventos Toto</b> el
+    <span th:text="${subscriptionDate}">28-12-2012</span>
+    </p>
+    <!--
+    <table>
+        <td>
+            <div class="container-padre">
+                <div class="container-hija"><img src="https://img.icons8.com/color/50/000000/instagram-new.png"/>
+                    <p class="parrafo" th:text="${instagramContact}">Instagram</p>
+                </div>
+
+                <div class="container-hija">
+                    <img src="https://img.icons8.com/color/50/000000/facebook.png"/>
+                    <p class="parrafo" th:text="${facebookContact}">Facebook</p>
+                </div>
+
+                <div class="container-hija"><img src="https://img.icons8.com/ios-filled/50/000000/apple-phone.png"/>
+                    <p class="parrafo" th:text="${phoneContact}">11 6011-2988</p>
+                </div>
+
+                <div class="container-hija"><img src="https://img.icons8.com/ios/50/000000/apple-mail.png"/>
+                    <p class="parrafo" th:text="${emailContact}">resurrected.web@gmail.com</p>
+                </div>
+            </div>
+        </td>
+    </table>
+    -->
+    <p>
+        Saludos, <br />
+        <em> El equipo Eventos Toto</em>
+    </p>
+</body>
+
+</html>
