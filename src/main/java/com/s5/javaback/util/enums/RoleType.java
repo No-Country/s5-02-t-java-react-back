@@ -3,14 +3,18 @@ package com.s5.javaback.util.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
 public enum RoleType {
+    USER("USER"),
+    ADMIN("ADMIN");
+    private String ROLE_PREFIX ="ROLE_";
+    private final String name ;
+    RoleType(String name) {
+        this.name = name;
+    }
 
-    ROLE_USER(1, "USER"),
-    ROLE_ADMIN(2, "ADMIN");
+    public String getName() {
+        return name;
+    }
 
-    private final long id;
-    private final String name;
-
+    public String getFullRoleName() {return ROLE_PREFIX + name;}
 }

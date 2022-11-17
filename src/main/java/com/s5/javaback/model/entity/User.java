@@ -47,15 +47,15 @@ public class User {
     @JoinColumn(name="image_id")
     @OneToOne(cascade = CascadeType.REFRESH)
     private Image image;
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @Column(name = "roles_id")
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
+    public void addRole(Role role) {
+        roles.add(role);
+    }
 
     @PrePersist
     public void prePersist() {
@@ -68,27 +68,5 @@ public class User {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public void addRole(final Role role) {
-        roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(final Role role) {
-        roles.remove(role);
-        role.getUsers().remove(this);
-    }
 
 }

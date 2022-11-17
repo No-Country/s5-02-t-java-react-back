@@ -48,9 +48,8 @@ public class UserServiceImpl implements UserService {
         final var user = mapper.toEntity(request);
         user.setPassword(encoder.encode(request.getPassword()));
 
-        final var role = roleRepository.findByName(RoleType.ROLE_USER.getName())
-                .orElseGet(() -> new Role(RoleType.ROLE_USER));
-
+        final var role = roleRepository.findByName(RoleType.USER.getName())
+                .orElseGet(() -> new Role(2L,RoleType.USER.getName()));
         user.addRole(role);
         User userCreate = repository.save(user);
        /* EmailRequest email = new EmailRequest();

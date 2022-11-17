@@ -4,6 +4,7 @@ import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.UserStatus;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/users")
 @CrossOrigin("*")
 @RequiredArgsConstructor
+@Builder
 public class UserController {
 
     private final UserService service;
