@@ -32,6 +32,8 @@ public class EntertainamentHome {
     private  String state ;
     @NotBlank
     private String description;
+    @NotBlank
+    private String capacity;
     private  String photograpy;
 
 

@@ -24,7 +24,8 @@ public class EntertainamentHomeRequest implements Serializable {
     @NotBlank
     private final String description;
     private final String photograpy;
-
+    @NotBlank
+    private String capacity;
 
 
 }

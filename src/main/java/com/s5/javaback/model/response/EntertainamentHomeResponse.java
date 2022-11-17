@@ -25,6 +25,9 @@ public class EntertainamentHomeResponse implements Serializable {
     @NotBlank
     private  String description;
     private  String photograpy;
+    @NotBlank
+    private String capacity;
+
 
 
 }

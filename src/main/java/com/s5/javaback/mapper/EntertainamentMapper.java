@@ -13,6 +13,7 @@ public class EntertainamentMapper {
         EntertainamentHome entertainamentHome = new EntertainamentHome();
         entertainamentHome.setCity(request.getCity());
         entertainamentHome.setName(request.getName());
+        entertainamentHome.setCapacity(request.getCapacity());
         entertainamentHome.setDescription(request.getDescription());
         entertainamentHome.setPhone(request.getPhone());
         entertainamentHome.setAdress(request.getAdress());
@@ -23,6 +24,7 @@ public class EntertainamentMapper {
      public EntertainamentHome update( EntertainamentHome home , EntertainamentHomeRequest request){
          home.setCity(request.getCity());
          home.setName(request.getName());
+         home.setCapacity(home.getCapacity());
          home.setDescription(request.getDescription());
          home.setPhone(request.getPhone());
          home.setAdress(request.getAdress());
@@ -34,6 +36,7 @@ public class EntertainamentMapper {
         public EntertainamentHomeResponse entityToDto(EntertainamentHome request){
         EntertainamentHomeResponse response = new EntertainamentHomeResponse();
             response.setCity(request.getCity());
+            response.setCapacity(request.getCapacity());
             response.setName(request.getName());
             response.setDescription(request.getDescription());
             response.setPhone(request.getPhone());
