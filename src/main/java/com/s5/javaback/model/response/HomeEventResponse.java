@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.List;
+
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class EntertainamentHomeResponse implements Serializable {
+public class HomeEventResponse implements Serializable {
     private  Long id;
     @NotBlank
     private  String name;

@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @ToString
 @Entity
-@Table(name = "entertainament_home")
-public class EntertainamentHome {
+@Table(name = "home_event")
+public class HomeEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

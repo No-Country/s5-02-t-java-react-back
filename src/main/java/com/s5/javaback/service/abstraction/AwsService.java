@@ -1,8 +1,8 @@
 package com.s5.javaback.service.abstraction;
 
+import com.s5.javaback.model.entity.Image;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.InputStream;
 import java.util.List;
 

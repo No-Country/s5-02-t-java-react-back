@@ -53,17 +53,24 @@ public class DataSeeder {
     }
 
     private void createUsers() {
-        List<Role> roles= new ArrayList<>();
+
         Role r = roleRepository.findById(1L).get();
-        roles.add(r);
         User user = new User();
         user.setEmail("admin@nc-eventos.com");
-        user.setName("NC-Eventos");
+        user.setUsername("NC-Eventos");
         user.setPassword(passwordEncoder.encode(PASSWORD));
         user.setName("No-Country");
         user.setStatus(UserStatus.ENABLED);
-        user.setRoles(roles);
+        user.addRole(r);
         user.setImage(new Image());
-       // createImage(user);
+        createImage(user);
+    }
+    private void createImage(User user) {
+        Image img = new Image();
+        img.setImageUrl("https://group6nocountrygnavarro.s3.amazonaws.com/1664630878400_user.webp");
+        img.setFileName("user_img");
+        Image create = imageRepository.save(img);
+        user.setImage(create);
+        userRepository.save(user);
     }
 }

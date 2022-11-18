@@ -1,21 +1,30 @@
 package com.s5.javaback.service;
 
 import com.s5.javaback.mapper.UserMapper;
+import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.entity.Role;
 import com.s5.javaback.model.entity.User;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.repository.IRoleRepository;
 import com.s5.javaback.repository.IUserRepository;
+import com.s5.javaback.repository.ImageRepository;
+import com.s5.javaback.service.abstraction.ImageService;
 import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.RoleType;
 import com.s5.javaback.util.enums.UserStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +41,11 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder encoder;
     @Autowired
     EmailService emailService;
-
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private ImageRepository imageRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImageServiceImpl.class);
     @Override
     public UserResponse create(UserRequest request) throws Exception {
         if (!request.passwordsMatch()) {
@@ -45,10 +58,9 @@ public class UserServiceImpl implements UserService {
 
         final var user = mapper.toEntity(request);
         user.setPassword(encoder.encode(request.getPassword()));
-
-        final var role = roleRepository.findByName(RoleType.USER.getName())
-                .orElseGet(() -> new Role(2L,RoleType.USER.getName()));
-        user.addRole(role);
+        final var role =  roleRepository.findById(2L).get();
+        user.addRole(roleRepository.findById(2L).get());
+        user.setImage(imageRepository.findById(1L).get());
         User userCreate = repository.save(user);
         emailService.sendWelcome(userCreate);
         return mapper.toResponse(userCreate);
@@ -75,8 +87,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserResponse> update(long id, UserRequest request) throws Exception {
-        final var user = checkUser(id);
+    public Optional<UserResponse> update(UserRequest request,  MultipartFile image) throws Exception {
+        Image img;
+        User user = getInfoUser();
+        img = imageService.update(user.getImage().getId(), imageService.imageUser(image));
 
         user.setName(request.getName() != null ? request.getName() : user.getName());
 
@@ -107,5 +121,17 @@ public class UserServiceImpl implements UserService {
     private User checkUser(long id) throws Exception {
         return repository.findById(id)
                 .orElseThrow(() -> new Exception("Usuario no encontrado!"));
+    }
+    @Override
+    public User getInfoUser() {
+        Object userInstance = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            if (userInstance instanceof User) {
+                String username = ((User) userInstance).getUsername();
+            }
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return repository.findByEmail(userInstance.toString());
     }
 }

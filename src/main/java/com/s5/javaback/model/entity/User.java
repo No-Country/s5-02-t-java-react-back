@@ -49,7 +49,7 @@ public class User {
     private Image image;
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @Column(name = "roles_id")
-    private List<Role> roles;
+    private Set<Role> roles=new HashSet<>();
 
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
@@ -57,7 +57,9 @@ public class User {
     public void addRole(Role role) {
         roles.add(role);
     }
-
+    public void removeRole(final Role role) {
+        roles.remove(role);
+    }
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {

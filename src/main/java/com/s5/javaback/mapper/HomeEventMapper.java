@@ -1,16 +1,14 @@
 package com.s5.javaback.mapper;
 
-import com.s5.javaback.model.entity.EntertainamentHome;
-import com.s5.javaback.model.request.EntertainamentHomeRequest;
-import com.s5.javaback.model.response.EntertainamentHomeResponse;
+import com.s5.javaback.model.entity.HomeEvent;
+import com.s5.javaback.model.request.HomeEventRequest;
+import com.s5.javaback.model.response.HomeEventResponse;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-public class EntertainamentMapper {
-    public EntertainamentHome dtoToEntity(EntertainamentHomeRequest request){
-        EntertainamentHome entertainamentHome = new EntertainamentHome();
+public class HomeEventMapper {
+    public HomeEvent dtoToEntity(HomeEventRequest request){
+        HomeEvent entertainamentHome = new HomeEvent();
         entertainamentHome.setCity(request.getCity());
         entertainamentHome.setName(request.getName());
         entertainamentHome.setCapacity(request.getCapacity());
@@ -21,7 +19,7 @@ public class EntertainamentMapper {
         entertainamentHome.setState(request.getState());
         return entertainamentHome;
     }
-     public EntertainamentHome update( EntertainamentHome home , EntertainamentHomeRequest request){
+     public HomeEvent update(HomeEvent home , HomeEventRequest request){
          home.setCity(request.getCity());
          home.setName(request.getName());
          home.setCapacity(home.getCapacity());
@@ -33,8 +31,8 @@ public class EntertainamentMapper {
          return home;
      }
 
-        public EntertainamentHomeResponse entityToDto(EntertainamentHome request){
-        EntertainamentHomeResponse response = new EntertainamentHomeResponse();
+        public HomeEventResponse entityToDto(HomeEvent request){
+        HomeEventResponse response = new HomeEventResponse();
             response.setCity(request.getCity());
             response.setCapacity(request.getCapacity());
             response.setName(request.getName());

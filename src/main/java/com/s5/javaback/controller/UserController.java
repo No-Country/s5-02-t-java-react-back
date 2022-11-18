@@ -6,6 +6,7 @@ import com.s5.javaback.service.abstraction.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,9 +28,10 @@ public class UserController {
         return ResponseEntity.of(service.getById(id));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UserResponse> updateById(@PathVariable("id") long id, @RequestBody UserRequest request) throws Exception {
-        return ResponseEntity.of(service.update(id, request));
+    @PutMapping("")
+    public ResponseEntity<UserResponse> update(@RequestPart ( value="image",required=false) MultipartFile image,
+                                               @RequestPart(value="user", required=true) UserRequest request) throws Exception {
+        return ResponseEntity.of(service.update(request,image));
     }
 
     @DeleteMapping("/{id}")
