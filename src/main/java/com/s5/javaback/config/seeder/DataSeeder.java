@@ -1,5 +1,6 @@
 package com.s5.javaback.config.seeder;
 
+import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.entity.Role;
 import com.s5.javaback.model.entity.User;
 import com.s5.javaback.repository.IRoleRepository;
@@ -53,7 +54,7 @@ public class DataSeeder {
 
     private void createUsers() {
         List<Role> roles= new ArrayList<>();
-        Role r = roleRepository.findByName("ADMIN").get();
+        Role r = roleRepository.findById(1L).get();
         roles.add(r);
         User user = new User();
         user.setEmail("admin@nc-eventos.com");
@@ -62,7 +63,7 @@ public class DataSeeder {
         user.setName("No-Country");
         user.setStatus(UserStatus.ENABLED);
         user.setRoles(roles);
-        user.setImage(null);
+        user.setImage(new Image());
        // createImage(user);
     }
 }
