@@ -1,11 +1,9 @@
 package com.s5.javaback.model.entity;
 
-import com.s5.javaback.model.response.ScheduleResponse;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
