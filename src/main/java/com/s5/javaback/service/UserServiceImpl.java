@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
     private ImageRepository imageRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageServiceImpl.class);
     @Override
+    @Transactional
     public UserResponse create(UserRequest request) throws Exception {
         if (!request.passwordsMatch()) {
             throw new Exception("Las contraseñas no coinciden");
@@ -55,10 +57,8 @@ public class UserServiceImpl implements UserService {
         if (repository.findByUsernameOrEmail(request.getUsername(), request.getEmail()).isPresent()) {
             throw new Exception("Este usuario ya está registrado");
         }
-
         final var user = mapper.toEntity(request);
         user.setPassword(encoder.encode(request.getPassword()));
-        final var role =  roleRepository.findById(2L).get();
         user.addRole(roleRepository.findById(2L).get());
         user.setImage(imageRepository.findById(1L).get());
         User userCreate = repository.save(user);
