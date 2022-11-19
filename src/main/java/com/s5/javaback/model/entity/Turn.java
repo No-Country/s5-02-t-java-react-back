@@ -22,9 +22,9 @@ public class Turn { // Turno
     @Enumerated(EnumType.STRING)
     private ConditionEnum conditions; // estado
 
-    private LocalTime startDate;
+    private LocalTime startDate; // hora inicio
 
-    private LocalTime endDate;
+    private LocalTime endDate; // hora fin
 
     private Double price;
 
