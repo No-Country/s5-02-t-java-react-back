@@ -6,4 +6,5 @@ import lombok.Data;
 public class UserResponse {
     private long id;
     private String name, username, email, createdAt;
+    private  ImageResponse image;
 }

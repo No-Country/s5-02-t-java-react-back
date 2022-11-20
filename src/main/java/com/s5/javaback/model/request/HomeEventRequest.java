@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
-public class EntertainamentHomeRequest implements Serializable {
+public class HomeEventRequest implements Serializable {
     @NotBlank
     private final String name;
     @NotBlank

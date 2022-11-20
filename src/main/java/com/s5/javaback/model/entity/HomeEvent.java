@@ -1,11 +1,9 @@
 package com.s5.javaback.model.entity;
 
-import com.s5.javaback.model.response.ScheduleResponse;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -14,8 +12,8 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "entertainament_home")
-public class EntertainamentHome {
+@Table(name = "home_event")
+public class HomeEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

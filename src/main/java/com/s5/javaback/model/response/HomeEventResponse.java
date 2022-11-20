@@ -6,26 +6,26 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.List;
+
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class EntertainamentHomeResponse implements Serializable {
+public class HomeEventResponse implements Serializable {
     private  Long id;
-    @NotBlank
+
     private  String name;
-    @NotBlank
+
     private  String adress;
-    @NotBlank
+
     private  String phone;
-    @NotBlank
+
     private  String city;
-    @NotBlank
+
     private  String state;
-    @NotBlank
+
     private  String description;
     private  String photograpy;
-    @NotBlank
+
     private String capacity;
 
 
