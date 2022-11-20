@@ -32,6 +32,7 @@ public class HomeEvent {
     private String description;
     @NotBlank
     private String capacity;
+
     private  String photograpy;
 
 
