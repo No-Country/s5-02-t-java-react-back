@@ -45,6 +45,7 @@ public class User {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_TIME_FORMAT)
     private LocalDateTime createdAt;
 
+    // relation with roles
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "users_roles",
@@ -54,6 +55,11 @@ public class User {
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
+
+    // relation with image
+    @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @PrePersist
     public void prePersist() {
