@@ -57,10 +57,12 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.delete(img);
     }
     @Override
-    public Image update(Long id, Image newImage ){
+    @Transactional
+    public Image update(Long id, MultipartFile newImage ){
+
         Image img = findById(id);
         awsService.deleteFileFromS3Bucket(img.getImageUrl());
-        return imageMapper.updateImageMapper(img, newImage);
+        return imageMapper.updateImageMapper(img, this.imageUser(newImage));
     }
 
 

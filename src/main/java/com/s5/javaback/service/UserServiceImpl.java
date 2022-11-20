@@ -13,6 +13,7 @@ import com.s5.javaback.service.abstraction.ImageService;
 import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.RoleType;
 import com.s5.javaback.util.enums.UserStatus;
+import com.s5.javaback.util.validations.UserValidations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ public class UserServiceImpl implements UserService {
     private ImageService imageService;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private UserValidations validate;
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageServiceImpl.class);
     @Override
     @Transactional
@@ -53,7 +56,12 @@ public class UserServiceImpl implements UserService {
         if (!request.passwordsMatch()) {
             throw new Exception("Las contraseñas no coinciden");
         }
-
+        if(request.getName().isEmpty()|| request.getName().isBlank()||request.getName()==null){
+            throw new Exception("El nombre no puede estar vacio o ser nulo");
+        }
+        if(request.getUsername().isEmpty()||request.getUsername().isBlank()||request.getUsername()==null){
+            throw new Exception("El username no puede estar vacio o ser nulo");
+        }
         if (repository.findByUsernameOrEmail(request.getUsername(), request.getEmail()).isPresent()) {
             throw new Exception("Este usuario ya está registrado");
         }
@@ -90,7 +98,7 @@ public class UserServiceImpl implements UserService {
     public Optional<UserResponse> update(UserRequest request,  MultipartFile image) throws Exception {
         Image img;
         User user = getInfoUser();
-        img = imageService.update(user.getImage().getId(), imageService.imageUser(image));
+        img = imageService.update(user.getImage().getId(), image);
 
         user.setName(request.getName() != null ? request.getName() : user.getName());
 

@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.of(service.getById(id));
     }
 
-    @PutMapping("")
+    @PutMapping("/update")
     public ResponseEntity<UserResponse> update(@RequestPart ( value="image",required=false) MultipartFile image,
                                                @RequestPart(value="user", required=true) UserRequest request) throws Exception {
         return ResponseEntity.of(service.update(request,image));

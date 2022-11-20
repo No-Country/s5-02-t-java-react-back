@@ -11,5 +11,5 @@ public interface ImageService {
     Image imageUser(MultipartFile image);
     ImageResponse imageUp(MultipartFile image);
     public void delete(Long id);
-    public Image update(Long id, Image img);
+    public Image update(Long id, MultipartFile img);
 }
