@@ -33,13 +33,7 @@ public class ImageServiceImpl implements ImageService {
         return imagesPost;
     }*/
 
-    @Override
-    @Transactional
-    public Image imageUser(MultipartFile image) {
-        Image img= awsService.uploadFile(image);
-        LOGGER.warn("Iamegen creada"+ img.getFileName());
-        return imageRepository.save(img);
-    }
+
 
     @Override
     public ImageResponse imageUp(MultipartFile image) {
@@ -59,11 +53,23 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public Image update(Long id, MultipartFile newImage ){
-
         Image img = findById(id);
-        awsService.deleteFileFromS3Bucket(img.getImageUrl());
-        return imageMapper.updateImageMapper(img, this.imageUser(newImage));
+        if (img.getId()==1){
+         Image image=  this.imageUser(newImage);
+         return imageRepository.save(image);
+        }else {
+            awsService.deleteFileFromS3Bucket(img.getImageUrl());
+            Image i=this.imageUser(newImage);
+            img.setImageUrl(i.getImageUrl());
+            img.setFileName(i.getFileName());
+            Image newimg=imageRepository.save(img);
+            return newimg;
+        }
     }
-
+    @Override
+    @Transactional
+    public Image imageUser(MultipartFile image) {
+        return awsService.uploadFile(image);
+    }
 
 }

@@ -1,6 +1,8 @@
 package com.s5.javaback.service.abstraction;
 
 import com.s5.javaback.model.entity.User;
+import com.s5.javaback.model.request.AuthRequest;
+import com.s5.javaback.model.request.AuthResponse;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,4 +26,5 @@ public interface UserService {
     void delete(long id) throws Exception;
 
     User findByUsername(String userName);
+    AuthResponse authentication(AuthRequest request);
 }
