@@ -47,7 +47,7 @@ public class User {
     @JoinColumn(name="image_id")
     @OneToOne(cascade = CascadeType.REFRESH)
     private Image image;
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @Column(name = "roles_id")
     private Set<Role> roles=new HashSet<>();
 
