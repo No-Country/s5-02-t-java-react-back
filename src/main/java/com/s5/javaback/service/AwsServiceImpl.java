@@ -53,7 +53,7 @@ public class AwsServiceImpl implements AwsService {
 
         }catch (AmazonS3Exception e){
             converterFile(file).delete();
-            throw new AmazonServiceException("Error: No se cargo el archivo en aws"+ e.getMessage());
+            throw new AmazonServiceException("Error: No se cargo el archivo en aws "+ e.getMessage());
         }
         return Image.builder()
                 .fileName(newFileName)

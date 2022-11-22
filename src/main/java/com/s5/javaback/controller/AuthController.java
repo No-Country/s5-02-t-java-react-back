@@ -22,26 +22,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService service;
-    private final AuthenticationManager manager;
-    private final JwtUtil jwtUtils;
-    private final UserDetailsServiceImpl userDetailsService;
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(final @RequestBody AuthRequest request) {
-        try {
-            manager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword()));
-
-            final var userId = service.getByUsernameOrEmail(request.getUsernameOrEmail(), request.getUsernameOrEmail())
-                    .map(UserResponse::getId)
-                    .orElseThrow();
-
-            final var userDetails = userDetailsService.loadUserByUsername(request.getUsernameOrEmail());
-            final var jwt = jwtUtils.generateToken(userDetails);
-
-            return ResponseEntity.ok(new AuthResponse(userId, jwt));
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+        return ResponseEntity.ok(service.authentication(request));
     }
 
     @PostMapping("/sign-up")
