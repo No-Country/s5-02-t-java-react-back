@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -35,5 +37,7 @@ public class HomeEvent {
 
     private  String photograpy;
 
+    @OneToMany(mappedBy = "homeEvent" ,cascade = CascadeType.ALL)
+    private List<Turn> turnList = new ArrayList<>();
 
 }
