@@ -40,4 +40,7 @@ public class HomeEvent {
     @OneToMany(mappedBy = "homeEvent" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
+
 }
