@@ -2,6 +2,7 @@ package com.s5.javaback.security;
 
 import com.s5.javaback.security.jwt.JwtFilter;
 import com.s5.javaback.security.service.UserDetailsServiceImpl;
+import com.s5.javaback.util.enums.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +56,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/users/update").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/{id}").permitAll()
+                //Home  .hasAnyRole(RoleType.ADMIN.getName()
+                .antMatchers(HttpMethod.POST,"/entertainamentHome/create").permitAll()
+                .antMatchers(HttpMethod.GET,"/entertainamentHome/find/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

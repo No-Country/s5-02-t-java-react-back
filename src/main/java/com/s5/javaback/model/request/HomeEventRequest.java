@@ -1,9 +1,12 @@
 package com.s5.javaback.model.request;
 
+import com.s5.javaback.model.entity.Turn;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class HomeEventRequest implements Serializable {
@@ -22,6 +25,7 @@ public class HomeEventRequest implements Serializable {
     private final String photograpy;
     @NotBlank
     private String capacity;
+    List<Turn> turnList = new ArrayList<>();
 
 
 }
