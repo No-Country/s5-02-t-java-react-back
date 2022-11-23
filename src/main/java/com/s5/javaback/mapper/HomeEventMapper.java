@@ -17,6 +17,7 @@ public class HomeEventMapper {
         entertainamentHome.setAdress(request.getAdress());
         entertainamentHome.setPhotograpy(request.getPhotograpy());
         entertainamentHome.setState(request.getState());
+        entertainamentHome.setTurnList(request.getTurnList());
         return entertainamentHome;
     }
      public HomeEvent update(HomeEvent home , HomeEventRequest request){
