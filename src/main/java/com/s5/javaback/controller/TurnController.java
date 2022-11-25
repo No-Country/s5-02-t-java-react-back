@@ -17,7 +17,7 @@ public class TurnController {
 
     private final TurnService turnService;
     @PostMapping("/create/{idHome}")
-    public ResponseEntity<TurnResponse> create(@PathVariable Long idHome, @RequestBody TurnRequest turnRequest){
+    public ResponseEntity<TurnResponse> create(@PathVariable Long idHome,@Valid @RequestBody TurnRequest turnRequest){
         TurnResponse response = turnService.create(idHome,turnRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

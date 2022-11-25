@@ -1,17 +1,12 @@
 package com.s5.javaback.model.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.s5.javaback.model.request.UserTurnRequest;
-import com.s5.javaback.util.constants.DateFormatConstants;
 import com.s5.javaback.util.enums.ConditionEnum;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
