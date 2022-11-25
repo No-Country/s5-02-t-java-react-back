@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -28,6 +29,7 @@ public class HomeEventResponse implements Serializable {
 
     private String capacity;
 
+    private List<TurnResponse> turnResponseList;
 
 
 }
