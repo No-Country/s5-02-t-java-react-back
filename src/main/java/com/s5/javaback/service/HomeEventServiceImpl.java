@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class HomeEventServiceImpl implements HomeEventService {
@@ -66,5 +67,12 @@ public class HomeEventServiceImpl implements HomeEventService {
     @Override
     public void save(HomeEvent event) {
         enterRepository.save(event);
+    }
+
+    @Override
+    public List<HomeEventResponse> getHomeByName(String name) {
+        List<HomeEvent> homeEvents = enterRepository.findByName(name);
+        List<HomeEventResponse> response = mapper.dtoToEntityList(homeEvents);
+        return response;
     }
 }

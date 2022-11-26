@@ -3,6 +3,7 @@ package com.s5.javaback.controller;
 import com.s5.javaback.model.request.TurnRequest;
 import com.s5.javaback.model.response.TurnResponse;
 import com.s5.javaback.service.abstraction.TurnService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ import javax.validation.Valid;
 public class TurnController {
 
     private final TurnService turnService;
+
+    @ApiOperation(value ="Crear turno", notes="Crea un turno y lo asigna a una casa",
+            response = ResponseEntity.class)
     @PostMapping("/create/{idHome}")
     public ResponseEntity<TurnResponse> create(@PathVariable Long idHome,@Valid @RequestBody TurnRequest turnRequest){
         TurnResponse response = turnService.create(idHome,turnRequest);
