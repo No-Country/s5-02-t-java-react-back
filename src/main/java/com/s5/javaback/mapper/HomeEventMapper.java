@@ -6,6 +6,8 @@ import com.s5.javaback.model.response.HomeEventResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -57,5 +59,25 @@ public class HomeEventMapper {
         }
 
 
+    public List<HomeEventResponse> dtoToEntityList(List<HomeEvent> homeEvents) {
+        List<HomeEventResponse> responses = new ArrayList<>();
+        HomeEventResponse response;
+        for (HomeEvent event: homeEvents){
+            response = new HomeEventResponse();
+            response.setId(event.getId());
+            response.setName(event.getName());
+            response.setCity(event.getCity());
+            response.setAdress(event.getAdress());
+            response.setDescription(event.getDescription());
+            response.setCapacity(event.getCapacity());
+            response.setPhone(event.getPhone());
+            response.setState(event.getState());
+            response.setTurnResponseList(event.getTurnList().stream().map(
+                    turnMapper::dtoToEntity).collect(Collectors.toList())
+            );
+            responses.add(response);
+        }
+        return responses;
+    }
 }
 

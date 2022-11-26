@@ -5,6 +5,8 @@ import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface HomeEventService {
 
     ResponseEntity<?> create(HomeEventRequest request) throws Exception;
@@ -14,4 +16,6 @@ public interface HomeEventService {
     HomeEvent getHomeBy(Long idHome);
 
     void save(HomeEvent event);
+
+    List<HomeEventResponse> getHomeByName(String name);
 }
