@@ -3,6 +3,7 @@ package com.s5.javaback.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -15,6 +16,7 @@ import java.util.Collections;
 
 
 @Configuration
+@EnableWebMvc
 public class SpringFoxConfig {
 
     @Bean
