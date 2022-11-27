@@ -72,7 +72,6 @@ public class HomeEventServiceImpl implements HomeEventService {
     @Override
     public List<HomeEventResponse> getHomeByName(String name) {
         List<HomeEvent> homeEvents = enterRepository.findByName(name);
-        List<HomeEventResponse> response = mapper.dtoToEntityList(homeEvents);
-        return response;
+        return mapper.dtoToEntityList(homeEvents);
     }
 }
