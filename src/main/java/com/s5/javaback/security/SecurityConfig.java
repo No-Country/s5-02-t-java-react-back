@@ -60,8 +60,10 @@ public class SecurityConfig {
                 //Home  .hasAnyRole(RoleType.ADMIN.getName()
                 .antMatchers(HttpMethod.POST,"/entertainamentHome/create").permitAll()
                 .antMatchers(HttpMethod.GET,"/entertainamentHome/find/{id}").permitAll()
-                .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
                 .antMatchers(HttpMethod.GET,"/entertainamentHome/name").permitAll()
+                //Turn
+                .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/turn/{idTurn}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

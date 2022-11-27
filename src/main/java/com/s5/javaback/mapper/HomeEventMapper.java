@@ -43,6 +43,7 @@ public class HomeEventMapper {
 
         public HomeEventResponse entityToDto(HomeEvent request){
         HomeEventResponse response = new HomeEventResponse();
+            response.setId(request.getId());
             response.setCity(request.getCity());
             response.setCapacity(request.getCapacity());
             response.setName(request.getName());

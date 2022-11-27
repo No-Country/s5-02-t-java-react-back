@@ -5,4 +5,6 @@ import com.s5.javaback.model.response.TurnResponse;
 
 public interface TurnService {
     TurnResponse create(Long idHome, TurnRequest turnRequest);
+
+    void deleted(Long idTurn);
 }

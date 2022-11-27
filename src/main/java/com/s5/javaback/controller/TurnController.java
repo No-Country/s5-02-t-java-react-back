@@ -25,4 +25,12 @@ public class TurnController {
         TurnResponse response = turnService.create(idHome,turnRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @ApiOperation(value ="Borra un turno", notes="Borra un turno de la casa",
+            response = ResponseEntity.class)
+    @DeleteMapping("/{idTurn}")
+    public ResponseEntity<Void> deleted(@PathVariable Long idTurn){
+        turnService.deleted(idTurn);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

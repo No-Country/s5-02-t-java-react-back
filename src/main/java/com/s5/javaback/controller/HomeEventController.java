@@ -4,7 +4,6 @@ import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
 import com.s5.javaback.service.abstraction.HomeEventService;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +46,8 @@ HomeEventService service ;
         return new ResponseEntity(response.getBody(), response.getStatusCode());
     }
 
-    @ApiOperation(value = "getByName", notes = "Busca una casa por nombre y las devuelve")
+    @ApiOperation(value = "getByName", notes = "Busca una casa por nombre y las devuelve",
+    response = ResponseEntity.class)
     @GetMapping("/name")
     public ResponseEntity<List<HomeEventResponse>> getByName(@RequestParam String name){
         List<HomeEventResponse> responses = service.getHomeByName(name);
