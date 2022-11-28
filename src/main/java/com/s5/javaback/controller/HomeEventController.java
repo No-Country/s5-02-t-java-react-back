@@ -9,23 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/entertainamentHome")
+@RequestMapping("/home_event")
 @CrossOrigin("*")
 public class HomeEventController {
 @Autowired
 HomeEventService service ;
 
-    @ApiOperation(value ="Crear", notes="Crea una casa",
+    @ApiOperation(value ="add", notes="Crea una casa",
             response = ResponseEntity.class)
     @PostMapping("/create")
-    public ResponseEntity<?>create(@Valid @RequestBody HomeEventRequest request) throws Exception {
-             ResponseEntity<?>  response = service.create(request);
+    public ResponseEntity<?>create( @RequestParam(value="postimages", required = false) List<MultipartFile> postImage ,
+                                    @RequestPart(value = "home_event", required = true) @Valid HomeEventRequest request)
+            throws Exception {
+             ResponseEntity<?>  response = service.create(request, postImage);
         return new ResponseEntity(response.getBody(), response.getStatusCode());
     }
 

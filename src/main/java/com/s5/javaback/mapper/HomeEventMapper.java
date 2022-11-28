@@ -23,7 +23,7 @@ public class HomeEventMapper {
         homeEvent.setCapacity(request.getCapacity());
         homeEvent.setDescription(request.getDescription());
         homeEvent.setPhone(request.getPhone());
-        homeEvent.setAdress(request.getAdress());
+        homeEvent.setAddress(request.getAddress());
         homeEvent.setPhotograpy(request.getPhotograpy());
         homeEvent.setState(request.getState());
         homeEvent.setTurnList(request.getTurnList());
@@ -35,7 +35,7 @@ public class HomeEventMapper {
          home.setCapacity(home.getCapacity());
          home.setDescription(request.getDescription());
          home.setPhone(request.getPhone());
-         home.setAdress(request.getAdress());
+         home.setAddress(request.getAddress());
          home.setPhotograpy(request.getPhotograpy());
          home.setState(request.getState());
          return home;
@@ -49,7 +49,7 @@ public class HomeEventMapper {
             response.setName(request.getName());
             response.setDescription(request.getDescription());
             response.setPhone(request.getPhone());
-            response.setAdress(request.getAdress());
+            response.setAddress(request.getAddress());
             response.setPhotograpy(request.getPhotograpy());
             response.setState(request.getState());
             response.setTurnResponseList(request.getTurnList().stream().map(
@@ -68,7 +68,7 @@ public class HomeEventMapper {
             response.setId(event.getId());
             response.setName(event.getName());
             response.setCity(event.getCity());
-            response.setAdress(event.getAdress());
+            response.setAddress(event.getAddress());
             response.setDescription(event.getDescription());
             response.setCapacity(event.getCapacity());
             response.setPhone(event.getPhone());
