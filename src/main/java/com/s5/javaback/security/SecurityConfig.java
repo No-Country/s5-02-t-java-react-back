@@ -58,9 +58,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/{id}").permitAll()
                 //Home  .hasAnyRole(RoleType.ADMIN.getName()
-                .antMatchers(HttpMethod.POST,"/entertainamentHome/create").permitAll()
-                .antMatchers(HttpMethod.GET,"/entertainamentHome/find/{id}").permitAll()
-                .antMatchers(HttpMethod.GET,"/entertainamentHome/name").permitAll()
+                .antMatchers(HttpMethod.POST,"/home_event/create").permitAll()
+                .antMatchers(HttpMethod.GET,"/home_event/find/{id}").permitAll()
+                .antMatchers(HttpMethod.GET,"/home_event/name").permitAll()
                 //Turn
                 .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/turn/{idTurn}").permitAll()
