@@ -52,7 +52,7 @@ public class User {
     private Set<Role> roles=new HashSet<>();
 
 
-    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Turn> turnList = new ArrayList<>();
     public void addRole(Role role) {
         roles.add(role);

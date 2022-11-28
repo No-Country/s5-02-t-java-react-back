@@ -27,4 +27,6 @@ public interface UserService {
 
     User findByUsername(String userName);
     AuthResponse authentication(AuthRequest request);
+
+    User getUserById(long userId);
 }

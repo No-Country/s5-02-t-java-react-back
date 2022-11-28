@@ -51,6 +51,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
+                .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/update").permitAll()
@@ -59,6 +60,10 @@ public class SecurityConfig {
                 //Home  .hasAnyRole(RoleType.ADMIN.getName()
                 .antMatchers(HttpMethod.POST,"/entertainamentHome/create").permitAll()
                 .antMatchers(HttpMethod.GET,"/entertainamentHome/find/{id}").permitAll()
+                .antMatchers(HttpMethod.GET,"/entertainamentHome/name").permitAll()
+                //Turn
+                .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/turn/{idTurn}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -78,5 +83,18 @@ public class SecurityConfig {
             }
         };
     }
+
+    private static final String[] publicEndpoint = {
+            "/swagger-resources/**",
+            "/swagger-ui/**", "/v2/api-docs",
+            "/v3/api-docs",
+            "/api/docs",
+            "/api/docs/**",
+            "/api/docs/swagger-ui",
+            "/swagger-ui.html",
+            "/**/swagger-ui/**",
+            "/swagger-ui"
+    };
+
 
 }

@@ -8,6 +8,7 @@ class JavaBackApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

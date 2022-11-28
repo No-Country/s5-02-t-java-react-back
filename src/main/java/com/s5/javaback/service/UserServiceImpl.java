@@ -159,6 +159,15 @@ public class UserServiceImpl implements UserService {
        }
     }
 
+    @Override
+    public User getUserById(long userId) {
+        Optional<User> user = repository.findById(userId);
+        if(user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuario no encontrado");
+        }
+        return user.get();
+    }
+
     private User checkUser(long id) throws Exception {
         return repository.findById(id)
                 .orElseThrow(() -> new Exception("Usuario no encontrado!"));

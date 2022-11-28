@@ -43,4 +43,8 @@ public class HomeEvent {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
+    public void addTurn(Turn turn){
+        turnList.add(turn);
+    }
+
 }

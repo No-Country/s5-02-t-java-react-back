@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class HomeEventServiceImpl implements HomeEventService {
@@ -51,5 +53,25 @@ public class HomeEventServiceImpl implements HomeEventService {
 
         } catch (Exception e)
         {   return new ResponseEntity("update fail", HttpStatus.BAD_REQUEST);}
+    }
+
+    @Override
+    public HomeEvent getHomeBy(Long idHome) {
+        Optional<HomeEvent> home = enterRepository.findById(idHome);
+        if(home.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Esta casa de eventos no esta registrada");
+        }
+        return home.get();
+    }
+
+    @Override
+    public void save(HomeEvent event) {
+        enterRepository.save(event);
+    }
+
+    @Override
+    public List<HomeEventResponse> getHomeByName(String name) {
+        List<HomeEvent> homeEvents = enterRepository.findByName(name);
+        return mapper.dtoToEntityList(homeEvents);
     }
 }
