@@ -23,7 +23,7 @@ public class HomeEvent {
     @NotBlank
     private String name ;
     @NotBlank
-     private String adress ;
+     private String address ;
     @NotBlank
     private String phone ;
     @NotBlank
@@ -40,11 +40,14 @@ public class HomeEvent {
     @OneToMany(mappedBy = "homeEvent" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
 
     public void addTurn(Turn turn){
         turnList.add(turn);
+    }
+    public void addImage(Image postImages){
+        images.add(postImages);
     }
 
 }

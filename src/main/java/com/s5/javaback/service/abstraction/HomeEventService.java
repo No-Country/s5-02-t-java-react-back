@@ -4,12 +4,13 @@ import com.s5.javaback.model.entity.HomeEvent;
 import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface HomeEventService {
 
-    ResponseEntity<?> create(HomeEventRequest request) throws Exception;
+    ResponseEntity<?> create(HomeEventRequest request,List<MultipartFile> postImage) throws Exception;
     ResponseEntity<HomeEventResponse> getById(Long id);
     ResponseEntity<HomeEventResponse> update(Long id, HomeEventRequest request) throws Exception;
 

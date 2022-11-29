@@ -39,7 +39,9 @@ public class DataSeeder {
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
             createUsers();
+            createHomeEvent();
         }
+
     }
     private void createRoles() {
         createRole(1L, RoleType.ADMIN);
@@ -72,5 +74,11 @@ public class DataSeeder {
         Image create = imageRepository.save(img);
         user.setImage(create);
         userRepository.save(user);
+    }
+    private void createHomeEvent() {
+        Image img = new Image();
+        img.setImageUrl("https://groups5nocontry.s3.amazonaws.com/1669647595714_salon-de-fiestas.jpeg");
+        img.setFileName("home_img");
+        Image create = imageRepository.save(img);
     }
 }
