@@ -23,13 +23,14 @@ public class SpringFoxConfig {
     @Bean
     public Docket swaggerConfiguration(){
         return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiCustomData())
                 .select()
                 .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.any())
-                .build().apiInfo(apiCustomData())
+                .build()
+
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(List.of(apiKey()));
-
 
 
 
