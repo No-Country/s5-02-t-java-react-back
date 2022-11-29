@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface HomeEventService {
 
-    ResponseEntity<?> create(List<MultipartFile> postImage, HomeEventRequest request) throws Exception;
+    ResponseEntity<?> create( List<MultipartFile> postImage, HomeEventRequest request) throws Exception;
     ResponseEntity<HomeEventResponse> getById(Long id);
     ResponseEntity<HomeEventResponse> update(Long id, HomeEventRequest request) throws Exception;
 

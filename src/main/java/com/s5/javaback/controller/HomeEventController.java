@@ -26,13 +26,12 @@ HomeEventService service ;
             response = ResponseEntity.class)
     @PostMapping("/create")
     public ResponseEntity<?>create(@RequestPart(value="postimages", required = false) List<MultipartFile> postImage,
-                                   @RequestParam @Valid HomeEventRequest request
-                                    )
+                                   @RequestPart(value = "home_event",required = true) @Valid HomeEventRequest request)
             throws Exception {
-             ResponseEntity<?>  response = service.create(postImage,request);
+             ResponseEntity<?>  response = service.create(postImage, request);
         return new ResponseEntity(response.getBody(), response.getStatusCode());
     }
-
+//value = "home_event", required = true
     @ApiOperation(value ="Update", notes="Actualiza una casa",
             response = ResponseEntity.class)
     @PutMapping("/update/{id}")
