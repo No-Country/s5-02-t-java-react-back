@@ -8,23 +8,27 @@ import com.s5.javaback.model.response.TurnResponse;
 import com.s5.javaback.repository.TurnRepository;
 import com.s5.javaback.service.abstraction.HomeEventService;
 import com.s5.javaback.service.abstraction.TurnService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
 
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Service
 public class TurnServiceImpl implements TurnService {
 
-    private final TurnRepository turnRepository;
-    private final TurnMapper turnMapper;
+    private TurnRepository turnRepository;
 
-    private final HomeEventService homeEventService;
+    private TurnMapper turnMapper;
+
+    private HomeEventService homeEventService;
 
     @Override
     public TurnResponse create(Long idHome, TurnRequest turnRequest) {
@@ -52,6 +56,9 @@ public class TurnServiceImpl implements TurnService {
     }
 
     public void save(Turn entityToDto) {
+
         turnRepository.save(entityToDto);
+
+
     }
 }
