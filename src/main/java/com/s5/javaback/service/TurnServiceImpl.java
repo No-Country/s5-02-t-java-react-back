@@ -19,16 +19,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class TurnServiceImpl implements TurnService {
 
-    private TurnRepository turnRepository;
+    private final TurnRepository turnRepository;
 
-    private TurnMapper turnMapper;
+    private final TurnMapper turnMapper;
 
-    private HomeEventService homeEventService;
+    private final HomeEventService homeEventService;
 
     @Override
     public TurnResponse create(Long idHome, TurnRequest turnRequest) {
