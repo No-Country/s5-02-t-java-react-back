@@ -1,17 +1,7 @@
 package service;
 
-import com.s5.javaback.model.entity.HomeEvent;
-import com.s5.javaback.model.entity.Turn;
-import com.s5.javaback.model.entity.User;
-import com.s5.javaback.service.TurnServiceImpl;
-import com.s5.javaback.util.enums.ConditionEnum;
 import org.junit.jupiter.api.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 
 class TurnServiceImplTest {
