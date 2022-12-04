@@ -26,12 +26,12 @@ public class Turn { // Turno
     private Long id;
     @Enumerated(EnumType.STRING)
     private ConditionEnum conditions; // estado
-
-    @JsonFormat(pattern="HH:mm")
+    @JsonFormat(pattern="HH:mm:ss")
+   // @JsonFormat(pattern="HH:mm")
     private LocalTime startDate; // hora inicio
-
-    @JsonFormat(pattern="HH:mm")
-    private LocalTime endDate; // hora fin
+   //@JsonFormat(pattern="HH:mm")
+   @JsonFormat(pattern="HH:mm:ss")
+   private LocalTime endDate; // hora fin
 
     private Double price;
 

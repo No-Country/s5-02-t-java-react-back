@@ -54,10 +54,5 @@ public class TurnServiceImpl implements TurnService {
         return turn.get();
     }
 
-    public void save(Turn entityToDto) {
 
-        turnRepository.save(entityToDto);
-
-
-    }
 }
