@@ -1,13 +1,18 @@
 package com.s5.javaback.service;
+
 import com.s5.javaback.mapper.HomeEventMapper;
 import com.s5.javaback.model.entity.HomeEvent;
 import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
+import com.s5.javaback.model.response.PageResponse;
 import com.s5.javaback.repository.HomeEventRepository;
 import com.s5.javaback.service.abstraction.HomeEventService;
 import com.s5.javaback.service.abstraction.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class HomeEventServiceImpl implements HomeEventService {
+
     @Autowired
     HomeEventMapper mapper;
     @Autowired
@@ -81,5 +87,14 @@ public class HomeEventServiceImpl implements HomeEventService {
     public List<HomeEventResponse> getHomeByName(String name) {
         List<HomeEvent> homeEvents = enterRepository.findByName(name);
         return mapper.dtoToEntityList(homeEvents);
+    }
+
+    @Override
+    public PageResponse<HomeEventResponse> getAll(int size, int page, String dir, String type, boolean enablePage) {
+        final var pageable = enablePage ? PageRequest.of(page - 1, size, Sort.by(dir.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, type)) : Pageable.unpaged();
+
+        final var temporal = enterRepository.findAll(pageable).map(mapper::entityToDto);
+
+        return new PageResponse<>(temporal.getContent(), temporal.getTotalElements(), temporal.getNumber());
     }
 }

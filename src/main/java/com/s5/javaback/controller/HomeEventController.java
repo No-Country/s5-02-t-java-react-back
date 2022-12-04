@@ -1,11 +1,14 @@
 package com.s5.javaback.controller;
 
+import com.s5.javaback.model.entity.HomeEvent;
 import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
+import com.s5.javaback.model.response.PageResponse;
 import com.s5.javaback.service.abstraction.HomeEventService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,4 +59,14 @@ HomeEventService service ;
         List<HomeEventResponse> responses = service.getHomeByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
+
+    @GetMapping
+    public ResponseEntity<PageResponse<HomeEventResponse>> getAll(@RequestParam(required = false, defaultValue = "name") String type,
+                                                                  @RequestParam(required = false, defaultValue = "1") int page,
+                                                                  @RequestParam(required = false, defaultValue = "10") int size,
+                                                                  @RequestParam(required = false, defaultValue = "ASC") String dir,
+                                                                  @RequestParam(required = false, defaultValue = "false") boolean enablePage) {
+        return ResponseEntity.ok(service.getAll(size, page, dir, type, enablePage));
+    }
+
 }
