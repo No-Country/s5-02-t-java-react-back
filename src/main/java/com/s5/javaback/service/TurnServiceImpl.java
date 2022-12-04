@@ -27,7 +27,7 @@ public class TurnServiceImpl implements TurnService {
     private final HomeEventService homeEventService;
 
     @Override
-    public TurnResponse create(Long idHome, TurnRequest turnRequest) {
+    public TurnResponse create(Long idHome, TurnRequest turnRequest) throws Exception {
         HomeEvent event = homeEventService.getHomeBy(idHome);
         Turn turn = turnMapper.entityToDto(turnRequest);
         turn.setHomeEvent(event);
