@@ -8,9 +8,6 @@ import com.s5.javaback.model.response.TurnResponse;
 import com.s5.javaback.repository.TurnRepository;
 import com.s5.javaback.service.abstraction.HomeEventService;
 import com.s5.javaback.service.abstraction.TurnService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -54,10 +51,5 @@ public class TurnServiceImpl implements TurnService {
         return turn.get();
     }
 
-    public void save(Turn entityToDto) {
 
-        turnRepository.save(entityToDto);
-
-
-    }
 }

@@ -25,10 +25,9 @@ public class SpringFoxConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiCustomData())
                 .select()
-                .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
                 .build()
-
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(List.of(apiKey()));
 
