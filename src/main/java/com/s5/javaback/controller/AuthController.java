@@ -16,6 +16,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin("*")
@@ -24,17 +26,15 @@ public class AuthController {
 
     private final UserService service;
 
-    @ApiOperation(value ="Login", notes="Loguearse",
-            response = ResponseEntity.class)
+    @ApiOperation(value = "Login", notes = "Loguearse", response = ResponseEntity.class)
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(final @RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(final @RequestBody @Valid AuthRequest request) {
         return ResponseEntity.ok(service.authentication(request));
     }
 
-    @ApiOperation(value ="Registro", notes="Registra un Usuario",
-            response = ResponseEntity.class)
+    @ApiOperation(value = "Registro", notes = "Registra un Usuario", response = ResponseEntity.class)
     @PostMapping("/sign-up")
-    public ResponseEntity<UserResponse> register(final @RequestBody UserRequest request) throws Exception {
+    public ResponseEntity<UserResponse> register(final @RequestBody @Valid UserRequest request) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
