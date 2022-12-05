@@ -62,6 +62,9 @@ public class User {
     public void addRole(Role role) {
         roles.add(role);
     }
+    public void addTurn(Turn turn){
+        turnList.add(turn);
+    }
 
     public void removeRole(final Role role) {
         roles.remove(role);
