@@ -19,14 +19,14 @@ public interface UserService {
     Optional<UserResponse> getById(long id);
 
     Optional<UserResponse> getByUsernameOrEmail(String username, String email);
-    User getInfoUser();
+    User getInfoUser() throws Exception;
 
     Optional<UserResponse> update(UserRequest request,  MultipartFile image) throws Exception;
 
     void delete(long id) throws Exception;
 
-    User findByUsername(String userName);
+    User findByUsername(String username);
     AuthResponse authentication(AuthRequest request);
 
-    User getUserById(long userId);
+    User getUserEntityById(long userId) throws Exception;
 }

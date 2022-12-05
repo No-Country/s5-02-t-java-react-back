@@ -1,23 +1,22 @@
 package com.s5.javaback.config.seeder;
 
+import com.s5.javaback.mapper.UserMapper;
 import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.entity.Role;
 import com.s5.javaback.model.entity.User;
+import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.repository.IRoleRepository;
 import com.s5.javaback.repository.IUserRepository;
 import com.s5.javaback.repository.ImageRepository;
 import com.s5.javaback.util.enums.RoleType;
-import com.s5.javaback.util.enums.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -25,11 +24,12 @@ public class DataSeeder {
     private static final String PASSWORD = "12345678";
     private final IRoleRepository roleRepository;
     private final IUserRepository userRepository;
+    private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
     private final ImageRepository imageRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @EventListener
-    public void seed(ContextRefreshedEvent event) {
+    public void seed(ContextRefreshedEvent event) throws Exception {
         // create role
         List<Role> roles = roleRepository.findAll();
         if (roles.isEmpty()) {
@@ -48,26 +48,20 @@ public class DataSeeder {
         createRole(2L, RoleType.USER);
     }
     private void createRole(long id, RoleType rolesEnum) {
-        Role role = new Role();
-        role.setId(id);
-        role.setName(rolesEnum.getFullRoleName());
-        roleRepository.save(role);
+        roleRepository.save(new Role(id, rolesEnum.getFullRoleName()));
     }
 
-    private void createUsers() {
+    private void createUsers() throws Exception {
+        final var role = roleRepository.findById(1L).orElseThrow(() -> new Exception("Role not found."));
+        final var userReq = new UserRequest("No-Country", "NC-Eventos", "admin@nc-eventos.com", PASSWORD, PASSWORD);
+        final var user = userMapper.toEntity(userReq);
 
-        Role r = roleRepository.findById(1L).get();
-        User user = new User();
-        user.setEmail("admin@nc-eventos.com");
-        user.setUsername("NC-Eventos");
-        user.setPassword(passwordEncoder.encode(PASSWORD));
-        user.setName("No-Country");
-        user.setStatus(UserStatus.ENABLED);
-        user.addRole(r);
+        user.addRole(role);
         user.setImage(new Image());
+        user.setPassword(encoder.encode(userReq.getPassword()));
         createImage(user);
     }
-    private void createImage(User user) {
+    private void createImage(@Valid User user) {
         Image img = new Image();
         img.setImageUrl("https://group6nocountrygnavarro.s3.amazonaws.com/1664630878400_user.webp");
         img.setFileName("user_img");

@@ -21,7 +21,7 @@ public class TurnController {
     @ApiOperation(value ="Crear turno", notes="Crea un turno y lo asigna a una casa",
             response = ResponseEntity.class)
     @PostMapping("/create/{idHome}")
-    public ResponseEntity<TurnResponse> create(@PathVariable Long idHome,@Valid @RequestBody TurnRequest turnRequest){
+    public ResponseEntity<TurnResponse> create(@PathVariable Long idHome,@Valid @RequestBody TurnRequest turnRequest) throws Exception {
         TurnResponse response = turnService.create(idHome,turnRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

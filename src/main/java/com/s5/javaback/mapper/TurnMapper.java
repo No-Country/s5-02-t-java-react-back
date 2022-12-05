@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 public class TurnMapper {
 
     private final UserService userService;
-    public Turn entityToDto(TurnRequest turnRequest) {
+    public Turn entityToDto(TurnRequest turnRequest) throws Exception {
         return Turn.builder()
                 .price(turnRequest.getPrice())
                 .conditions(ConditionEnum.CONFIRMED)
                 .startDate(turnRequest.getStartDate())
                 .endDate(turnRequest.getEndDate())
                 .days(turnRequest.getDays())
-                .user(userService.getUserById(turnRequest.getUserId()))
+                .user(userService.getUserEntityById(turnRequest.getUserId()))
                 .build();
     }
 
