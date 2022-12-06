@@ -1,10 +1,7 @@
 package com.s5.javaback.service;
 
 import com.mercadopago.MercadoPagoConfig;
-import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
-import com.mercadopago.client.preference.PreferenceClient;
-import com.mercadopago.client.preference.PreferenceItemRequest;
-import com.mercadopago.client.preference.PreferenceRequest;
+import com.mercadopago.client.preference.*;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
@@ -45,20 +42,30 @@ public class PaymentServiceImpl implements PaymentService {
                 .currencyId("ARS")
                 .build();
         items.add(item);
+        //Preferencia del Usuario
+        PreferencePayerRequest payerRequest = PreferencePayerRequest.builder()
+                .name(turn.getUser().getName())
+                .email(turn.getUser().getEmail())
+                .build();
         //Url de respuestas
         PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                //Url de respuesta cuando se apreta el boton volver al sitio
-                .success("http://localhost:8080/payment/success")
-                .failure("http://localhost:8080/payment/failure")
-                .pending("http://localhost:8080/payment/pending")
+                //TODO Url de respuesta cuando se apreta el boton volver al sitio falta redireccionar
+                .success("http://localhost:8081/api/v1/payment/success")
+                .failure("http://localhost:8081/api/v1/payment/failure")
+                .pending("http://localhost:8081/api/v1/payment/pending")
                 .build();
+
 
         PreferenceRequest request = PreferenceRequest.builder()
                 .items(items)
                 .backUrls(backUrls)
+                .payer(payerRequest)
                 .build();
-        Preference response = preferenceClient.create(request);
 
-        return response;
+
+        Preference create = preferenceClient.create(request);
+        create.getAutoReturn();
+
+        return create;
     }
 }

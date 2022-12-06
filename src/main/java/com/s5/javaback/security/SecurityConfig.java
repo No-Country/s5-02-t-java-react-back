@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/turn/{idTurn}").permitAll()
                 .antMatchers(HttpMethod.POST,"/payment/{turnId}").permitAll()
+                .antMatchers(HttpMethod.GET,"/payment/success").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
