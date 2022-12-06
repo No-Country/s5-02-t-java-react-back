@@ -33,7 +33,7 @@ public class TurnServiceImpl implements TurnService {
     @Override
     public TurnResponse create(Long idHome, TurnRequest turnRequest) throws Exception {
         HomeEvent event = homeEventService.getHomeBy(idHome);
-        User user = userService.getUserById(turnRequest.getUserId());
+        User user = userService.getUserEntityById(turnRequest.getUserId());
         Turn turn = turnMapper.entityToDto(turnRequest);
         turn.setHomeEvent(event);
         Turn turnCreate = turnRepository.save(turn);
@@ -47,6 +47,11 @@ public class TurnServiceImpl implements TurnService {
     public void deleted(Long idTurn) {
         Turn turn = getTurn(idTurn);
         turnRepository.delete(turn);
+    }
+
+    @Override
+    public Turn findById(Long turnId) {
+        return getTurn(turnId);
     }
 
     private Turn getTurn(Long idTurn) {
