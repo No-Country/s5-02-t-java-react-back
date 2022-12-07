@@ -12,7 +12,6 @@ import com.s5.javaback.util.enums.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -24,7 +23,6 @@ public class DataSeeder {
     private static final String PASSWORD = "12345678";
     private final IRoleRepository roleRepository;
     private final IUserRepository userRepository;
-    private final PasswordEncoder encoder;
     private final UserMapper userMapper;
     private final ImageRepository imageRepository;
 
@@ -58,7 +56,6 @@ public class DataSeeder {
 
         user.addRole(role);
         user.setImage(new Image());
-        user.setPassword(encoder.encode(userReq.getPassword()));
         createImage(user);
     }
     private void createImage(@Valid User user) {

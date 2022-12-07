@@ -9,22 +9,16 @@ import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.repository.IRoleRepository;
 import com.s5.javaback.repository.IUserRepository;
 import com.s5.javaback.repository.ImageRepository;
-import com.s5.javaback.security.jwt.JwtUtil;
-import com.s5.javaback.security.service.UserDetailsServiceImpl;
 import com.s5.javaback.service.abstraction.ImageService;
 import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.UserStatus;
-import com.s5.javaback.util.validations.UserValidations;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,14 +35,9 @@ public class UserServiceImpl implements UserService {
     private final IUserRepository repository;
     private final IRoleRepository roleRepository;
     private final UserMapper mapper;
-    private final PasswordEncoder encoder;
     private final EmailService emailService;
     private final ImageService imageService;
     private final ImageRepository imageRepository;
-    private final UserValidations validate;
-    private final UserDetailsServiceImpl serviceDetails;
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager manager;
 
     @Override
     @Transactional
@@ -63,7 +52,6 @@ public class UserServiceImpl implements UserService {
 
         final var user = mapper.toEntity(request);
 
-        user.setPassword(encoder.encode(request.getPassword()));
         user.addRole(roleRepository.findById(2L).orElseThrow(() -> new Exception("Rol no encontrado.")));
         user.setImage(imageRepository.findById(1L).orElseThrow(() -> new Exception("Imagen no encontrada.")));
 
@@ -101,10 +89,7 @@ public class UserServiceImpl implements UserService {
 
         user.setImage(img);
         user.setName(request.getName() != null ? request.getName() : user.getName());
-
-        if (request.getPassword() != null) {
-            user.setPassword(encoder.encode(request.getPassword()));
-        }
+        user.setPassword(request.getPassword());
 
         return Optional.of(mapper.toResponse(repository.save(user)));
     }
@@ -126,13 +111,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponse authentication(AuthRequest request) {
        try {
-           manager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword()));
-
            final var userId = this.getByUsernameOrEmail(request.getUsernameOrEmail(), request.getUsernameOrEmail())
                    .map(UserResponse::getId)
                    .orElseThrow(() -> new Exception("Algo salió mal."));
-           final var userDetails = serviceDetails.loadUserByUsername(request.getUsernameOrEmail());
-           final var jwt = jwtUtil.generateToken(userDetails);
+           final var jwt = "";
 
            return new AuthResponse(userId, jwt);
        } catch (Exception ex) {
