@@ -46,9 +46,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse create() throws Exception {
         final var user = mapper.toEntity(getUserFirebase());
+        final var userByEmail = repository.findByEmail(user.getEmail());
 
-        if (repository.findByEmail(user.getEmail()).isPresent()) {
-            throw new Exception("This user already exists!");
+        if (userByEmail.isPresent()) {
+            return mapper.toResponse(userByEmail.get());
         }
 
         user.addRole(roleRepository.findById(2L).orElseThrow(() -> new Exception("Rol no encontrado.")));
