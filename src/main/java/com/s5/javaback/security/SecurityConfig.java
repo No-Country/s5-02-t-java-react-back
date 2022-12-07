@@ -22,8 +22,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .cors().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
@@ -50,13 +49,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebMvcConfigurer webMvcConfigurer() {
+    public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
+                        .allowedMethods("GET", "POST", "PATCH", "PUT","DELETE")
+                        .maxAge(3600);
             }
         };
     }
