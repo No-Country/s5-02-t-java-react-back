@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### omegalul ###
+src/main/resources/serviceFirebase.json

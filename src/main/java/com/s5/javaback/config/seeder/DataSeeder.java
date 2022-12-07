@@ -51,7 +51,7 @@ public class DataSeeder {
 
     private void createUsers() throws Exception {
         final var role = roleRepository.findById(1L).orElseThrow(() -> new Exception("Role not found."));
-        final var userReq = new UserRequest("No-Country", "NC-Eventos", "admin@nc-eventos.com", PASSWORD, PASSWORD);
+        final var userReq = new UserRequest("No-Country", "admin@nc-eventos.com");
         final var user = userMapper.toEntity(userReq);
 
         user.addRole(role);

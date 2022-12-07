@@ -41,8 +41,8 @@ public class UserController {
 
     @ApiOperation(value = "Borrar", notes = "Borra un usuario por id", response = ResponseEntity.class)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable("id") long id) throws Exception {
-        service.delete(id);
+    public ResponseEntity<Object> deleteById() throws Exception {
+        service.delete();
 
         return ResponseEntity.ok().body("El usuario ha sido deshabilitado");
     }

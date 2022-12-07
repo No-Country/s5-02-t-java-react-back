@@ -23,14 +23,14 @@ public class AuthController {
 
     @ApiOperation(value = "Login", notes = "Loguearse", response = ResponseEntity.class)
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(final @RequestBody @Valid AuthRequest request) {
-        return ResponseEntity.ok(service.authentication(request));
+    public ResponseEntity<Boolean> login() throws Exception {
+        return ResponseEntity.ok(service.isEnabled());
     }
 
     @ApiOperation(value = "Registro", notes = "Registra un Usuario", response = ResponseEntity.class)
     @PostMapping("/sign-up")
-    public ResponseEntity<UserResponse> register(final @RequestBody @Valid UserRequest request) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
+    public ResponseEntity<UserResponse> register() throws Exception {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create());
     }
 
 }

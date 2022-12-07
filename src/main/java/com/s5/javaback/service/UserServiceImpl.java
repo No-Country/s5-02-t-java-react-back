@@ -1,6 +1,8 @@
 package com.s5.javaback.service;
 
+import com.google.firebase.auth.UserRecord;
 import com.s5.javaback.mapper.UserMapper;
+import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.entity.User;
 import com.s5.javaback.model.request.AuthRequest;
 import com.s5.javaback.model.request.AuthResponse;
@@ -9,6 +11,7 @@ import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.repository.IRoleRepository;
 import com.s5.javaback.repository.IUserRepository;
 import com.s5.javaback.repository.ImageRepository;
+import com.s5.javaback.security.model.UserFirebase;
 import com.s5.javaback.service.abstraction.ImageService;
 import com.s5.javaback.service.abstraction.UserService;
 import com.s5.javaback.util.enums.UserStatus;
@@ -41,19 +44,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse create(UserRequest request) throws Exception {
-        if (!request.passwordsMatch()) {
-            throw new Exception("Las contraseñas no coinciden");
-        }
+    public UserResponse create() throws Exception {
+        final var user = mapper.toEntity(getUserFirebase());
 
-        if (repository.findByUsernameOrEmail(request.getUsername(), request.getEmail()).isPresent()) {
-            throw new Exception("Este usuario ya está registrado");
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new Exception("This user already exists!");
         }
-
-        final var user = mapper.toEntity(request);
 
         user.addRole(roleRepository.findById(2L).orElseThrow(() -> new Exception("Rol no encontrado.")));
-        user.setImage(imageRepository.findById(1L).orElseThrow(() -> new Exception("Imagen no encontrada.")));
+
+        final var image = new Image();
+        image.setImageUrl(user.getImage().getImageUrl());
+        image.setFileName("user_img");
+
+        user.setImage(imageRepository.save(image));
 
         final var newUser = repository.save(user);
         emailService.sendWelcome(newUser);
@@ -77,49 +81,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserResponse> getByUsernameOrEmail(String username, String email) {
-        return repository.findByUsernameOrEmail(username, email).map(mapper::toResponse);
+    public Optional<UserResponse> getByEmail(String email) {
+        return repository.findByEmail(email).map(mapper::toResponse);
     }
 
     @Override
     @Transactional
     public Optional<UserResponse> update(UserRequest request, MultipartFile image) throws Exception {
-        final var user = getInfoUser();
+        final var user = repository.findByEmail(this.getUserFirebase().getEmail())
+                .orElseThrow(() -> new Exception("User not found."));
+
         final var img = imageService.update(user.getImage().getId(), image);
 
         user.setImage(img);
         user.setName(request.getName() != null ? request.getName() : user.getName());
-        user.setPassword(request.getPassword());
 
         return Optional.of(mapper.toResponse(repository.save(user)));
     }
 
     @Override
-    public void delete(long id) throws Exception {
-        final var user = checkUser(id);
+    public void delete() throws Exception {
+        final var user = repository.findByEmail(this.getUserFirebase().getEmail())
+                .orElseThrow(() -> new Exception("User not found"));
+
         user.setStatus(UserStatus.DISABLED);
 
         repository.save(user);
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return repository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-    }
-
-    @Override
-    public AuthResponse authentication(AuthRequest request) {
-       try {
-           final var userId = this.getByUsernameOrEmail(request.getUsernameOrEmail(), request.getUsernameOrEmail())
-                   .map(UserResponse::getId)
-                   .orElseThrow(() -> new Exception("Algo salió mal."));
-           final var jwt = "";
-
-           return new AuthResponse(userId, jwt);
-       } catch (Exception ex) {
-           throw new RuntimeException(ex.getMessage());
-       }
     }
 
     @Override
@@ -128,22 +115,22 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new Exception("Usuario con ID #" + userId + " no encontrado."));
     }
 
-    private User checkUser(long id) throws Exception {
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("Usuario no encontrado!"));
+    @Override
+    public UserFirebase getUserFirebase() {
+        return mapper.toFirebase((UserRecord) SecurityContextHolder.getContext().getAuthentication().getDetails());
     }
 
     @Override
-    public User getInfoUser() throws Exception {
-        final var userInstance = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public boolean isEnabled() throws Exception {
+        return repository.findByEmail(this.getUserFirebase().getEmail())
+                .orElseThrow(() -> new Exception("User not found"))
+                .getStatus()
+                .equals(UserStatus.ENABLED);
+    }
 
-        if (!(userInstance instanceof UserDetails)) {
-            throw new UsernameNotFoundException("Something went wrong...");
-        }
-
-        return repository.findByUsername(((UserDetails) userInstance).getUsername())
-                .orElseThrow(() -> new Exception("User not found."));
-
+    private User checkUser(long id) throws Exception {
+        return repository.findById(id)
+                .orElseThrow(() -> new Exception("Usuario no encontrado!"));
     }
 
 }
