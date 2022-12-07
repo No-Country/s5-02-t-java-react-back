@@ -5,6 +5,7 @@ import com.s5.javaback.model.request.AuthRequest;
 import com.s5.javaback.model.request.AuthResponse;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
+import com.s5.javaback.security.model.UserFirebase;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -12,21 +13,21 @@ import java.util.Optional;
 
 public interface UserService {
 
-    UserResponse create(UserRequest request) throws Exception;
+    UserResponse create() throws Exception;
 
     List<UserResponse> getAll(String status);
 
     Optional<UserResponse> getById(long id);
 
-    Optional<UserResponse> getByUsernameOrEmail(String username, String email);
-    User getInfoUser() throws Exception;
+    Optional<UserResponse> getByEmail(String email);
 
     Optional<UserResponse> update(UserRequest request,  MultipartFile image) throws Exception;
 
-    void delete(long id) throws Exception;
-
-    User findByUsername(String username);
-    AuthResponse authentication(AuthRequest request);
+    void delete() throws Exception;
 
     User getUserEntityById(long userId) throws Exception;
+
+    UserFirebase getUserFirebase();
+
+    boolean isEnabled() throws Exception;
 }

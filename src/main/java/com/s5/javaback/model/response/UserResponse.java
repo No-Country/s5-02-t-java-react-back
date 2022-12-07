@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserResponse {
-    private long id;
-    private String name, username, email, createdAt;
-    private  ImageResponse image;
+    private final long id;
+    private final String name, email, createdAt;
+    private final ImageResponse image;
 }
