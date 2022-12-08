@@ -23,8 +23,8 @@ public class AuthController {
 
     @ApiOperation(value = "Login", notes = "Loguearse", response = ResponseEntity.class)
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login() throws Exception {
-        return ResponseEntity.ok(service.isEnabled());
+    public ResponseEntity<UserResponse> login() throws Exception {
+        return ResponseEntity.of(service.getUserLogged());
     }
 
     @ApiOperation(value = "Registro", notes = "Registra un Usuario", response = ResponseEntity.class)

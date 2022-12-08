@@ -4,8 +4,6 @@ import com.google.firebase.auth.UserRecord;
 import com.s5.javaback.mapper.UserMapper;
 import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.entity.User;
-import com.s5.javaback.model.request.AuthRequest;
-import com.s5.javaback.model.request.AuthResponse;
 import com.s5.javaback.model.request.UserRequest;
 import com.s5.javaback.model.response.UserResponse;
 import com.s5.javaback.repository.IRoleRepository;
@@ -18,13 +16,9 @@ import com.s5.javaback.util.enums.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -122,16 +116,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isEnabled() throws Exception {
-        return repository.findByEmail(this.getUserFirebase().getEmail())
-                .orElseThrow(() -> new Exception("User not found"))
-                .getStatus()
-                .equals(UserStatus.ENABLED);
-    }
-
-    private User checkUser(long id) throws Exception {
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("Usuario no encontrado!"));
+    public Optional<UserResponse> getUserLogged() {
+        return repository.findByEmail(mapper.toEntity(this.getUserFirebase()).getEmail()).map(mapper::toResponse);
     }
 
 }
