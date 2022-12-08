@@ -26,7 +26,6 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/update").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/{id}").permitAll()
