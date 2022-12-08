@@ -62,7 +62,9 @@ public class HomeEventServiceImpl implements HomeEventService {
         try {
             Optional<HomeEvent> home = enterRepository.findById(id);
             if (home.isPresent()) {
-                HomeEvent h = mapper.update(home.get(), request);    }
+                HomeEvent h = mapper.update(home.get(), request);
+                enterRepository.save(h);
+            }
 
                 return new ResponseEntity("update", HttpStatus.ACCEPTED);
 
