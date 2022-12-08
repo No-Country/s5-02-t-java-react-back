@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/turn")
 public class TurnController {
 
