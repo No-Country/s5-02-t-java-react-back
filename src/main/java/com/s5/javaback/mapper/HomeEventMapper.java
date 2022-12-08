@@ -1,6 +1,7 @@
 package com.s5.javaback.mapper;
 
 import com.s5.javaback.model.entity.HomeEvent;
+import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class HomeEventMapper {
 
     private final TurnMapper turnMapper;
+    private final ImageMapper imageMapper;
 
     public HomeEvent dtoToEntity(HomeEventRequest request){
         HomeEvent homeEvent = new HomeEvent();
@@ -59,6 +61,8 @@ public class HomeEventMapper {
             response.setTurnResponseList(request.getTurnList().stream().map(
                     turnMapper::dtoToEntity).collect(Collectors.toList())
             );
+            response.setImageResponses(request.getImages().stream().map(
+                    imageMapper::dtoToEntity).collect(Collectors.toList()));
             return response;
 
         }

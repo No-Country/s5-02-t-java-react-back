@@ -31,6 +31,7 @@ public class HomeEventResponse implements Serializable {
     private Double price;
 
     private List<TurnResponse> turnResponseList;
+    private List<ImageResponse> imageResponses;
 
 
 }
