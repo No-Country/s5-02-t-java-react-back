@@ -1,6 +1,7 @@
 package com.s5.javaback.mapper;
 
 import com.s5.javaback.model.entity.HomeEvent;
+import com.s5.javaback.model.entity.Image;
 import com.s5.javaback.model.request.HomeEventRequest;
 import com.s5.javaback.model.response.HomeEventResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class HomeEventMapper {
 
     private final TurnMapper turnMapper;
+    private final ImageMapper imageMapper;
 
     public HomeEvent dtoToEntity(HomeEventRequest request){
         HomeEvent homeEvent = new HomeEvent();
@@ -24,8 +26,9 @@ public class HomeEventMapper {
         homeEvent.setDescription(request.getDescription());
         homeEvent.setPhone(request.getPhone());
         homeEvent.setAddress(request.getAddress());
-        homeEvent.setPhotograpy(request.getPhotograpy());
+        //homeEvent.setPhotograpy(request.getPhotograpy());
         homeEvent.setState(request.getState());
+        homeEvent.setPrice(request.getPrice());
         //homeEvent.setTurnList(request.getTurnList());
         return homeEvent;
     }
@@ -38,6 +41,7 @@ public class HomeEventMapper {
          home.setAddress(request.getAddress());
          home.setPhotograpy(request.getPhotograpy());
          home.setState(request.getState());
+         home.setPrice(request.getPrice());
          return home;
      }
 
@@ -52,9 +56,13 @@ public class HomeEventMapper {
             response.setAddress(request.getAddress());
             response.setPhotograpy(request.getPhotograpy());
             response.setState(request.getState());
+            response.setPrice(request.getPrice());
+
             response.setTurnResponseList(request.getTurnList().stream().map(
                     turnMapper::dtoToEntity).collect(Collectors.toList())
             );
+            response.setImageResponses(request.getImages().stream().map(
+                    imageMapper::dtoToEntity).collect(Collectors.toList()));
             return response;
 
         }
@@ -73,6 +81,7 @@ public class HomeEventMapper {
             response.setCapacity(event.getCapacity());
             response.setPhone(event.getPhone());
             response.setState(event.getState());
+            response.setPrice(event.getPrice());
             response.setTurnResponseList(event.getTurnList().stream().map(
                     turnMapper::dtoToEntity).collect(Collectors.toList())
             );

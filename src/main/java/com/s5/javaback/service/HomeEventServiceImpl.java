@@ -36,6 +36,7 @@ public class HomeEventServiceImpl implements HomeEventService {
             HomeEvent e = mapper.dtoToEntity(request);
             List<Image> l=imageService.imagesPost(postImage);
             e.setImages(l);
+            e.setPhotograpy( l.get(0).getImageUrl());
             HomeEvent eventCreate =  enterRepository.save(e);
 
             return new ResponseEntity(eventCreate,HttpStatus.CREATED);
@@ -61,7 +62,9 @@ public class HomeEventServiceImpl implements HomeEventService {
         try {
             Optional<HomeEvent> home = enterRepository.findById(id);
             if (home.isPresent()) {
-                HomeEvent h = mapper.update(home.get(), request);    }
+                HomeEvent h = mapper.update(home.get(), request);
+                enterRepository.save(h);
+            }
 
                 return new ResponseEntity("update", HttpStatus.ACCEPTED);
 

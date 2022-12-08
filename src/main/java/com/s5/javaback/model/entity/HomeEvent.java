@@ -37,6 +37,8 @@ public class HomeEvent {
 
     private  String photograpy;
 
+    private Double price;
+
     @OneToMany(mappedBy = "homeEvent" ,cascade = CascadeType.ALL)
     private List<Turn> turnList = new ArrayList<>();
 
