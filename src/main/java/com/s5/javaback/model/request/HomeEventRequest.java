@@ -27,6 +27,8 @@ public class HomeEventRequest implements Serializable {
     private  String photograpy;
     @NotBlank
     private String capacity;
+
+    private Double price;
     //List<Turn> turnList = new ArrayList<>();
 
 

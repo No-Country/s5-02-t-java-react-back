@@ -26,6 +26,7 @@ public class HomeEventMapper {
         homeEvent.setAddress(request.getAddress());
         homeEvent.setPhotograpy(request.getPhotograpy());
         homeEvent.setState(request.getState());
+        homeEvent.setPrice(request.getPrice());
         //homeEvent.setTurnList(request.getTurnList());
         return homeEvent;
     }
@@ -38,6 +39,7 @@ public class HomeEventMapper {
          home.setAddress(request.getAddress());
          home.setPhotograpy(request.getPhotograpy());
          home.setState(request.getState());
+         home.setPrice(request.getPrice());
          return home;
      }
 
@@ -52,6 +54,8 @@ public class HomeEventMapper {
             response.setAddress(request.getAddress());
             response.setPhotograpy(request.getPhotograpy());
             response.setState(request.getState());
+            response.setPrice(request.getPrice());
+
             response.setTurnResponseList(request.getTurnList().stream().map(
                     turnMapper::dtoToEntity).collect(Collectors.toList())
             );
@@ -73,6 +77,7 @@ public class HomeEventMapper {
             response.setCapacity(event.getCapacity());
             response.setPhone(event.getPhone());
             response.setState(event.getState());
+            response.setPrice(event.getPrice());
             response.setTurnResponseList(event.getTurnList().stream().map(
                     turnMapper::dtoToEntity).collect(Collectors.toList())
             );
