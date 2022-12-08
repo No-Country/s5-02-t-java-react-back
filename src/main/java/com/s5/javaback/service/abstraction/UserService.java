@@ -29,5 +29,5 @@ public interface UserService {
 
     UserFirebase getUserFirebase();
 
-    boolean isEnabled() throws Exception;
+    Optional<UserResponse> getUserLogged();
 }
