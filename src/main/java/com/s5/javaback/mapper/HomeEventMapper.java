@@ -24,7 +24,7 @@ public class HomeEventMapper {
         homeEvent.setDescription(request.getDescription());
         homeEvent.setPhone(request.getPhone());
         homeEvent.setAddress(request.getAddress());
-        homeEvent.setPhotograpy(request.getPhotograpy());
+        //homeEvent.setPhotograpy(request.getPhotograpy());
         homeEvent.setState(request.getState());
         homeEvent.setPrice(request.getPrice());
         //homeEvent.setTurnList(request.getTurnList());
