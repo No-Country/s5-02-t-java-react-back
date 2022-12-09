@@ -20,12 +20,14 @@ public class TurnRequest {
     private static final String USERID_NOT_NULL_MESSAGE = "El id del usuario no puede estar vacio!";
 
     //@JsonFormat(pattern="HH:mm")
-    @JsonFormat(pattern="HH:mm:ss")
+    /*@JsonFormat(pattern="HH:mm:ss")
     private LocalTime startDate; // hora inicio
 
     //@JsonFormat(pattern="HH:mm")
     @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime endDate; // hora fin
+    private LocalTime endDate; // hora fin*/
+
+    private String startDay, endDay;
 
     private Double price;
 

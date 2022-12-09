@@ -21,6 +21,7 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "turns")
 public class Turn { // Turno
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +31,16 @@ public class Turn { // Turno
    // @JsonFormat(pattern="HH:mm")
     private LocalTime startDate; // hora inicio
    //@JsonFormat(pattern="HH:mm")
-   @JsonFormat(pattern="HH:mm:ss")
-   private LocalTime endDate; // hora fin
+    @JsonFormat(pattern="HH:mm:ss")
+    private LocalTime endDate; // hora fin
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_FORMAT)
+    @Column(name = "start_day", nullable = false)
+    private LocalDate startDay;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = DateFormatConstants.DATE_FORMAT)
+    @Column(name = "end_day", nullable = false)
+    private LocalDate endDay;
 
     private Double price;
 

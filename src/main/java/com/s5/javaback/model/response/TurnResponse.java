@@ -21,18 +21,22 @@ public class TurnResponse {
     @Enumerated(EnumType.STRING)
     private ConditionEnum conditions; // estado
 
-    //@JsonFormat(pattern="HH:mm")
+    /*//@JsonFormat(pattern="HH:mm")
     @JsonFormat(pattern="HH:mm:ss")
     private LocalTime startDate; // hora inicio
 
     //@JsonFormat(pattern="HH:mm")
     @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime endDate; // hora fin
+    private LocalTime endDate; // hora fin*/
+
+    private String startDay;
+
+    private String endDay;
 
     private Double price;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate days;
+    /*@JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate days;*/
 
     private String name, email;
 }
