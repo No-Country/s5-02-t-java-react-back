@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,"/home_event/create").permitAll()
                 .antMatchers(HttpMethod.GET,"/home_event/find/{id}").permitAll()
                 .antMatchers(HttpMethod.GET,"/home_event/name").permitAll()
+                .antMatchers(HttpMethod.PUT,"/home_event/update/{id}").permitAll()
                 //Turn
                 .antMatchers(HttpMethod.POST,"/turn/create/{idHome}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/turn/{idTurn}").permitAll()

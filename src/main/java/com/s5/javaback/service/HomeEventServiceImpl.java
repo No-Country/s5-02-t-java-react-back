@@ -60,13 +60,10 @@ public class HomeEventServiceImpl implements HomeEventService {
     @Override
     public ResponseEntity<HomeEventResponse> update(Long id, HomeEventRequest request) throws Exception {
         try {
-            Optional<HomeEvent> home = enterRepository.findById(id);
-            if (home.isPresent()) {
-                HomeEvent h = mapper.update(home.get(), request);
-                enterRepository.save(h);
-            }
-
-                return new ResponseEntity("update", HttpStatus.ACCEPTED);
+            HomeEvent home = enterRepository.findById(id).orElseThrow();
+            HomeEvent h = mapper.update(home, request);
+            enterRepository.save(h);
+            return new ResponseEntity("update", HttpStatus.ACCEPTED);
 
         } catch (Exception e)
         {   return new ResponseEntity("update fail", HttpStatus.BAD_REQUEST);}
