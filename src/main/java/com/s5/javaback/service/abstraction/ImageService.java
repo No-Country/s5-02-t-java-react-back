@@ -5,9 +5,10 @@ import com.s5.javaback.model.response.ImageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface ImageService {
-   // List<Image> imagesPost(List<MultipartFile> postImagep);
+    List<Image> imagesPost(List<MultipartFile> postImagep);
     Image imageUser(MultipartFile image);
     ImageResponse imageUp(MultipartFile image);
     public void delete(Long id);

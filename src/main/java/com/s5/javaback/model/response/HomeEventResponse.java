@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -15,7 +15,7 @@ public class HomeEventResponse implements Serializable {
 
     private  String name;
 
-    private  String adress;
+    private  String address;
 
     private  String phone;
 
@@ -28,6 +28,10 @@ public class HomeEventResponse implements Serializable {
 
     private String capacity;
 
+    private Double price;
+
+    private List<TurnResponse> turnResponseList;
+    private List<ImageResponse> imageResponses;
 
 
 }

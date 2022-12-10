@@ -1,6 +1,7 @@
 package com.s5.javaback.mapper;
 
 import com.s5.javaback.model.entity.Image;
+import com.s5.javaback.model.response.ImageResponse;
 import org.springframework.stereotype.Component;
 
 
@@ -14,4 +15,9 @@ public class ImageMapper {
        return img;
     }
 
+    public ImageResponse dtoToEntity(Image image) {
+        return ImageResponse.builder()
+                .imageUrl(image.getImageUrl())
+                .build();
+    }
 }

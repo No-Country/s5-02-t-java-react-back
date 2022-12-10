@@ -1,10 +1,11 @@
 package com.s5.javaback.model.request;
 
+
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
-@RequiredArgsConstructor
 public class AuthRequest {
-    private final String usernameOrEmail, password;
+    private final @NotBlank String usernameOrEmail, password;
 }

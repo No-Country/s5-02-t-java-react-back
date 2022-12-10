@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
@@ -20,18 +23,18 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private final ImageMapper imageMapper;
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageServiceImpl.class);
-   /* @Override
+    @Override
     @Transactional
     public List<Image> imagesPost(List<MultipartFile> postImage) {
         List<Image> imagesPost=new ArrayList<>();
-        for (MultipartFile m: postImage ) {
-            if(m==null||m.isEmpty()){
-                imagesPost.add(imageRepository.findById(1L).get());
-            }else { imagesPost.add(imageRepository.save(awsService.uploadFile(m)));}
+        for (MultipartFile img: postImage ) {
+            if(img==null||img.isEmpty()){
+                imagesPost.add(imageRepository.findById(2L).get());
+            }else { imagesPost.add(imageRepository.save(awsService.uploadFile(img)));}
         }
         LOGGER.warn("Array de amazon creado "+imagesPost.size());
         return imagesPost;
-    }*/
+    }
 
 
 
