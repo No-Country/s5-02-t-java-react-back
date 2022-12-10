@@ -26,3 +26,8 @@ https://house-event-beta.netlify.app/
 
 <h3>Swagger</h3>
 http://localhost:8081/api/v1/swagger-ui/
+
+<h4>Linkedin</h4>
+
+- :space_invader:[Abel Acevedo](https://www.linkedin.com/in/abel-fernando-acevedo/)
+- :smirk:[Gabriel Navarro](https://www.linkedin.com/in/gabriel-navarro-233388219/)
