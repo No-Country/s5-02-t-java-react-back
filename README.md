@@ -1,7 +1,7 @@
 <h1>Grupo: s5-02-t-java-react-back</h1>
 <h2>Casa de Eventos</h2>
-<p>App que resuelve el problema de alquilar casas para eventos donde el usuario cliente se registra busca una 
-casa la selecciona y se asigna un turno, luego realiza el pago con mercado pagos.</p>
+<p><span>App que resuelve el problema de alquilar casas para eventos donde el usuario cliente se registra busca una 
+casa la selecciona y se asigna un turno, luego realiza el pago con mercado pagos.</span></p>
 
 <h3>:computer: Tecnologías Back End </h3>
 
@@ -18,6 +18,7 @@ casa la selecciona y se asigna un turno, luego realiza el pago con mercado pagos
 - ✅jpa-hibernate
 - ✅aws para las imagenes
 - ✅Mercado pago 
+- ✅Login con Google 
 
 
 <h3>Deploy</h3>
