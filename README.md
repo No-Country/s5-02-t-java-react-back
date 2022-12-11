@@ -31,3 +31,5 @@ http://localhost:8081/api/v1/swagger-ui/
 
 - :space_invader:[Abel Acevedo](https://www.linkedin.com/in/abel-fernando-acevedo/)
 - :smirk:[Gabriel Navarro](https://www.linkedin.com/in/gabriel-navarro-233388219/)
+- :relaxed:[Alben Bustamante](https://www.linkedin.com/in/alben-bustamante/)
+- :relaxed:[Marcos Goncheff](https://www.linkedin.com/in/marcos-paz-goncheff/)
